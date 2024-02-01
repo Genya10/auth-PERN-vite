@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import style from "./style.module.scss";
 import { AuthContext } from "../context/AuthContext";
+import Button from "../components/Button"
 
 export default function Demo() {
     const { data, handleLogOut, handleFetchProtected } = useContext(AuthContext);
