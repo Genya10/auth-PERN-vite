@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import TokenService from "./TokenService.js";
 import { NotFound, Forbidden, Conflict } from "../utils/Errors.js";
 import RefreshSessionsRepository from "../repositories/RefreshSession.js";
-import UserRepository from "../repositories/User.js";
+import UserRepository from "../repositories/UserRepository.js";
 import { ACCESS_TOKEN_EXPIRATION } from "../constants.js";
 
 class AuthService {

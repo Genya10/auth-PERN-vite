@@ -1,4 +1,4 @@
-import AuthService from "../services/Auth.js";
+import AuthService from "../services/AuthService";
 import ErrorsUtils from "../utils/Errors.js";
 import { COOKIE_SETTINGS } from "../constants.js";
 

@@ -21,6 +21,6 @@ app.use(
 );
 
 app.listen(PORT, () => {
-    console.log("Сервер успешно запущен");
+    console.log(`Server started on port ${PORT} `);
   });
   
