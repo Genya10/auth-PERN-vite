@@ -1,4 +1,4 @@
-@import "../../variables.scss";
+@import "../variables.scss";
 
 .inputField {
   display: flex;
@@ -7,8 +7,8 @@
 
   & > input {
     outline: none;
-    border: 0.5px solid $border-color;
-    border-radius: 10px;
+    border: 1px solid $border-color;
+    border-radius: 12px;
     padding: 10px;
   }
 
@@ -19,7 +19,7 @@
 
 .error {
   margin: 5px 0 0 10px !important;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   color: $error-color;
 }
