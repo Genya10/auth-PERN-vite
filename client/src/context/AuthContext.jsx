@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Circle } from "react-preloaders";
 import config from "../config";
+import style from "../app.module.scss";
+import showError from "../../utils/showError";
 
 export const AuthClient = axios.create({
     baseURL:`${config.API_URL}/auth`
