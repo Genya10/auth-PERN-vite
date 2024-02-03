@@ -18,7 +18,9 @@ export const AuthClient = axios.create({
   
     const handleLogOut = () => {};
   
-    const handleSignUp = (data) => {};
+    const handleSignUp = (data) => {
+     AuthClient.post("/sign-up",data);
+    };
     
   
     const handleSignIn = (data) => {};

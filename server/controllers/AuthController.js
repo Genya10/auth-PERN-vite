@@ -1,5 +1,5 @@
-import AuthService from "../services/AuthService";
-import ErrorsUtils from "../utils/Errors.js";
+import AuthService from "../services/AuthService.js";
+import ErrorsUtils from "../utils/Error.js";
 import { COOKIE_SETTINGS } from "../constants.js";
 
 class AuthController {
