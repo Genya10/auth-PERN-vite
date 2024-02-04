@@ -13,8 +13,10 @@ class AuthController {
   }
 
   static async signUp(req, res) {
+    const {useName,password,role} = req.body;
     const { fingerprint } = req;
     try {
+      await AuthService.signUp({userName,password,role,fingerprint})
       return res.sendStatus(200);
     } catch (err) {
       return ErrorsUtils.catchError(res, err);
