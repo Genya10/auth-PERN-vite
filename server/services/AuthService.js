@@ -21,6 +21,13 @@ class AuthService {
     });
    
     const payload = {id, userName, role};
+
+    const accessToken = await TokenService.generateAccessToken(payload);
+    const refreshToken = await TokenService.generateRefreshToken(payload);
+
+    await RefreshSessionsRepository.createRefreshSession({
+      id, refreshToken, fingerprint
+    });
   }
 
   static async logOut(refreshToken) {}
