@@ -3,7 +3,8 @@ import axios from "axios";
 import { Circle } from "react-preloaders";
 import config from "../config";
 import style from "../app.module.scss";
-import showError from "../../utils/showError";
+import showError from "../utils/showError";
+import inMemoryJWT from "../memoryJWT/inMemoryJWT";
 
 export const AuthClient = axios.create({
     baseURL:`${config.API_URL}/auth`
@@ -19,11 +20,18 @@ export const AuthClient = axios.create({
     const handleLogOut = () => {};
   
     const handleSignUp = (data) => {
-     AuthClient.post("/sign-up",data);
+     AuthClient.post("/sign-up",data).then((res)=>{
+      const {accessToken ,accessTokenExpiration} = res.data;
+      inMemoryJWT.setToken(accessToken,accessTokenExpiration)
+     }).catch(showError);
     };
     
-  
-    const handleSignIn = (data) => {};
+    const handleSignIn = (data) => {
+      AuthClient.post("/sign-in",data).then((res)=>{
+        const {accessToken ,accessTokenExpiration} = res.data;
+        inMemoryJWT.setToken(accessToken,accessTokenExpiration)
+       }).catch(showError);
+    };
   
     return (
       <AuthContext.Provider
