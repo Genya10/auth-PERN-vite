@@ -21,6 +21,7 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
    if(accessToken){
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
    return config;
  },
  (error) => {

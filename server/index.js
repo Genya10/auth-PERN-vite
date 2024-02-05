@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import Fingerprint from "express-fingerprint";
 import cookieParser from "cookie-parser";
 import AuthRouter from "./routers/AuthRouter.js";
+import TokenService from "./services/TokenService.js";
 
 dotenv.config();
 
@@ -24,7 +25,9 @@ app.use(
 );
 
 app.use("/auth",AuthRouter);
-app.get("/resourse/protected",(_, res) => {
+
+app.get("/resourse/protected",TokenService.checkAccess,(_, res) => {
+
   return res.status(200).json("Welcome!" + Date.now());
 });
 
