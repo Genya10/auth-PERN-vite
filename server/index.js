@@ -27,8 +27,7 @@ app.use(
 app.use("/auth",AuthRouter);
 
 app.get("/resourse/protected",TokenService.checkAccess,(_, res) => {
-
-  return res.status(200).json("Welcome!" + Date.now());
+  res.status(200).json("Welcome!" + Date.now());
 });
 
 app.listen(PORT, () => {

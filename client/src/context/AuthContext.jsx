@@ -18,6 +18,7 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
  AuthResourse.interceptors.request.use(
   (config) => {
    const accessToken = inMemoryJWT.getToken();
+   
    if(accessToken){
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
