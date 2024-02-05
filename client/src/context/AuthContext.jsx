@@ -6,16 +6,39 @@ import style from "../app.module.scss";
 import showError from "../utils/showError";
 import inMemoryJWT from "../memoryJWT/inMemoryJWT";
 
-export const AuthClient = axios.create({
-    baseURL:`${config.API_URL}/auth`
-  })
+ const AuthClient = axios.create({
+    baseURL:`${config.API_URL}/auth`,
+    withCredentials:true
+  });
+
+ const AuthResourse = axios.create({
+  baseURL:`${config}/resourse`
+ });
+
+ AuthResourse.interceptors.request.use(
+  (config) => {
+   const accessToken = inMemoryJWT.getToken();
+   if(accessToken){
+    config.headers["Authorization"] = `Bearer ${accessToken}`;
+  }
+   return config;
+ },
+ (error) => {
+   Promise.reject(error);
+ }
+ );
   
   export const AuthContext = createContext({});
   
   const AuthProvider = ({ children }) => {
     const [data, setData] = useState();
   
-    const handleFetchProtected = () => {};
+    const handleFetchProtected = () => {
+      AuthResourse.get("/protected")
+       .then((res)=>{
+        setData(res.data);
+      }).catch(showError);     
+    };
   
     const handleLogOut = () => {};
   
