@@ -28,6 +28,9 @@ class AuthService {
     await RefreshSessionsRepository.createRefreshSession({
       id, refreshToken, fingerprint
     });
+    return {
+      accessToken, refreshToken, accessTokenExpiration:ACCESS_TOKEN_EXPIRATION
+    };
   }
 
   static async logOut(refreshToken) {}
