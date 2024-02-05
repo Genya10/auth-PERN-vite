@@ -29,8 +29,12 @@ class AuthController {
   }
 
   static async logOut(req, res) {
+    const refreshToken = req.cookies.refreshToken;
     const { fingerprint } = req;
     try {
+      await AuthService.logOut(refreshToken);
+      
+      res.clearCookie("refreshToken");
       return res.sendStatus(200);
     } catch (err) {
       return ErrorsUtils.catchError(res, err);

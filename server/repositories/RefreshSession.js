@@ -9,7 +9,11 @@ class RefreshSessionRepository {
     [id, refreshToken, fingerprint.hash])
   }
 
-  static async deleteRefreshSession(refreshToken) {}
+  static async deleteRefreshSession(refreshToken) {
+    await pool.query("DELETE FROM refresh_sessions WHERE  refresh_token=$1",[
+      refreshToken,
+    ])
+  }
 }
 
 export default RefreshSessionRepository;

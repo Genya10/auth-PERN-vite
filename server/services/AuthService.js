@@ -33,7 +33,9 @@ class AuthService {
     };
   }
 
-  static async logOut(refreshToken) {}
+  static async logOut(refreshToken) {
+    await RefreshSessionsRepository.deleteRefreshSession(refreshToken);
+  }
 
   static async refresh({ fingerprint, currentRefreshToken }) {}
 }

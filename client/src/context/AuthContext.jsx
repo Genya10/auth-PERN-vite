@@ -41,7 +41,12 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
       }).catch(showError);     
     };
   
-    const handleLogOut = () => {};
+    const handleLogOut = () => {
+      AuthClient.post("/logout")
+      .then(()=>{
+        inMemoryJWT.deleteToken();
+      }).catch(showError)
+    };
   
     const handleSignUp = (data) => {
      AuthClient.post("/sign-up",data).then((res)=>{
