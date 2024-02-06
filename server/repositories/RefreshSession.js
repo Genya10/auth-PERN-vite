@@ -5,7 +5,7 @@ class RefreshSessionRepository {
     const response = await pool.query(
       "SELECT * FROM refresh_sessions WHERE refresh_token=$1",
     [refreshToken]);
-    if(!response.rows.lehgth){
+    if(!response.rows.length){
       return null;
       }
       return response.rows[0];

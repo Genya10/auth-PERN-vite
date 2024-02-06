@@ -58,6 +58,7 @@ class AuthController {
         currentRefreshToken,
         fingerprint,
       });
+      
       res.cookie("refreshToken", refreshToken, COOKIE_SETTINGS.REFRESH_TOKEN)
       return res.sendStatus(200);
     } catch (err) {
