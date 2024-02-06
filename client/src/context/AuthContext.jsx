@@ -62,6 +62,14 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
         inMemoryJWT.setToken(accessToken,accessTokenExpiration)
        }).catch(showError);
     };
+
+    useEffect(()=>{
+    AuthClient.post("/refresh")
+    .then((res)=>{
+      const { accessToken, accessTokenExpiration } = res.data;
+      inMemoryJWT.setToken(accessToken, accessTokenExpiration)
+    })
+    },[])
   
     return (
       <AuthContext.Provider
