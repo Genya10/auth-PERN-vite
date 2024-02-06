@@ -16,22 +16,34 @@ class TokenService {
  
   }
 
+  static async verifyAccessToken(accessToken){
+    return await jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+ }
+  static async verifyRefreshToken(refreshToken){
+   return await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+ }
+
   static async checkAccess(req, _, next) {
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(" ")?.[1];
 
-    if(!token){
+    if( !token ){
       return next(new Unauthorized());
     }
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET,(error, user)=>{
-      console.log(error, user);
-      if(error){
-        return next(new Forbidden(error));
-      }
-      req.user = user;
-      next();
-    });
-  }
-}
 
-export default TokenService;
+    try{
+      req.user = await TokenService.verifyAccessToken(token);
+      console.log(req.user);
+    } catch (error){
+      console.log(error);
+      return next(new Forbidden(error));
+    }
+    next();  
+    }
+  }
+
+  export default TokenService;
+
+
+
+

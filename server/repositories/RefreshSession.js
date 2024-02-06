@@ -1,7 +1,15 @@
 import pool from "../db.js";
 
 class RefreshSessionRepository {
-  static async getRefreshSession(refreshToken) {}
+  static async getRefreshSession(refreshToken) {
+    const response = await pool.query(
+      "SELECT * FROM refresh_sessions WHERE refresh_token=$1",
+    [refreshToken]);
+    if(!response.rows.lehgth){
+      return null;
+      }
+      return response.rows[0];
+  }
 
   static async createRefreshSession({ id, refreshToken, fingerprint }) {
     await pool.query(
@@ -12,7 +20,8 @@ class RefreshSessionRepository {
   static async deleteRefreshSession(refreshToken) {
     await pool.query("DELETE FROM refresh_sessions WHERE  refresh_token=$1",[
       refreshToken,
-    ])
+    ]);
+
   }
 }
 

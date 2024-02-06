@@ -50,7 +50,15 @@ class AuthController {
 
   static async refresh(req, res) {
     const { fingerprint } = req;
+    const currentRefreshToken = req.cookies.refreshToken;
+
     try {
+      const {accessToken, refreshToken, accessTokenExpiration} = 
+      await AuthService.refresh({
+        currentRefreshToken,
+        fingerprint,
+      });
+      res.cookie("refreshToken", refreshToken, COOKIE_SETTINGS.REFRESH_TOKEN)
       return res.sendStatus(200);
     } catch (err) {
       return ErrorsUtils.catchError(res, err);
