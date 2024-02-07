@@ -12,7 +12,7 @@ export const AuthClient = axios.create({
   });
 
  const AuthResourse = axios.create({
-  baseURL:`${config}/resource`
+  baseURL:`${config.API_URL}/resource`
  });
 
  AuthResourse.interceptors.request.use(
@@ -39,9 +39,9 @@ export const AuthClient = axios.create({
   
     const handleFetchProtected = () => {
       AuthResourse.get("/protected")
-       .then((res)=>{
+       .then((res) => {
+        console.log("Protected resource data:", res.data); //отслеживания данных из защищенного ресурса
         setData(res.data);
-        console.log(res.data);
       }).catch(showError);     
     };
   

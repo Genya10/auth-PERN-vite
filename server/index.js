@@ -26,7 +26,8 @@ app.use(
 app.use("/auth",AuthRouter);
 
 app.get("/resource/protected",TokenService.checkAccess,(_, res) => {
-   //res.status(200).json("Welcome!" + Date.now());
+  console.log("Protected resource accessed."); //отслеживания доступа к защищенному ресурсу
+   res.status(200).json("Welcome!" + Date.now());
 });
 
 app.listen(PORT, () => {
