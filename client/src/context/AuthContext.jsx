@@ -33,6 +33,8 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
   export const AuthContext = createContext({});
   
   const AuthProvider = ({ children }) => {
+    const [isAppReady, setIsAppReady] = useState(false);
+    const [isLogin , setIsLogin] = useState(false);
     const [data, setData] = useState();
   
     const handleFetchProtected = () => {
@@ -45,29 +47,43 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
     const handleLogOut = () => {
       AuthClient.post("/logout")
       .then(()=>{
+        setIsLogin(false);
         inMemoryJWT.deleteToken();
+        setData();       
       }).catch(showError)
     };
   
     const handleSignUp = (data) => {
-     AuthClient.post("/sign-up",data).then((res)=>{
+     AuthClient.post("/sign-up",data)
+      .then((res)=>{
       const {accessToken ,accessTokenExpiration} = res.data;
-      inMemoryJWT.setToken(accessToken,accessTokenExpiration)
-     }).catch(showError);
+      inMemoryJWT.setToken(accessToken,accessTokenExpiration);
+      setIsLogin(true);
+     })
+     .catch(showError);
     };
     
     const handleSignIn = (data) => {
-      AuthClient.post("/sign-in",data).then((res)=>{
+      AuthClient.post("/sign-in",data)
+        .then((res)=>{
         const {accessToken ,accessTokenExpiration} = res.data;
-        inMemoryJWT.setToken(accessToken,accessTokenExpiration)
-       }).catch(showError);
+        inMemoryJWT.setToken(accessToken,accessTokenExpiration);
+        setIsLogin(true);
+       })
+       .catch(showError);
     };
 
     useEffect(()=>{
     AuthClient.post("/refresh")
     .then((res)=>{
       const { accessToken, accessTokenExpiration } = res.data;
-      inMemoryJWT.setToken(accessToken, accessTokenExpiration)
+      inMemoryJWT.setToken(accessToken, accessTokenExpiration);
+      setIsAppReady(true);
+      setIsLogin(true);
+    })
+    .catch(()=>{
+      setIsAppReady(true);
+      setIsLogin(false);
     })
     },[])
   
@@ -79,9 +95,17 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
           handleSignUp,
           handleSignIn,
           handleLogOut,
+          isAppReady,
+          isLogin
         }}
       >
-        {children}
+      {isAppReady ? (
+        children
+      ):(
+        <div className={style.centered}>
+        <Circle />
+        </div>
+      )}        
       </AuthContext.Provider>
     );
   };
