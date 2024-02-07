@@ -37,6 +37,7 @@ export default function SignIn() {
       />
       <Field
         name="password"
+        type="password"
         register={register}
         autoComplete="off"
         placeholder="Password"

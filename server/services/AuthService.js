@@ -65,6 +65,7 @@ class AuthService {
       throw new Unauthorized();
     }
     if (refreshSession.finger_print !== fingerprint.hash){
+      console.log("Attempted unauthorized token update!");
       throw new Forbidden();
     }
     await RefreshSessionRepository.deleteRefreshSession(currentRefreshToken);

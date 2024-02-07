@@ -1,3 +1,5 @@
+import config from "../config";
+
 const inMemoryJWTService =()=>{
   let inMemoryJWT = null;
   let refreshTimeoutId = null;
@@ -28,7 +30,8 @@ const inMemoryJWTService =()=>{
   };
   const deleteToken =()=>{
     inMemoryJWT = null;
-    abortRefreshToken()
+    abortRefreshToken();
+    localStorage.setItem(config.LOGOUT_STORAGE,Date.now());
   };
   return {getToken, setToken, deleteToken};
 }

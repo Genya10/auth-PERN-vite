@@ -85,7 +85,22 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
       setIsAppReady(true);
       setIsLogin(false);
     })
-    },[])
+    },[]);
+
+    useEffect(()=>{
+      const handlePersist =(event)=>{
+        if(event.key === config.LOGOUT_STORAGE){
+          inMemoryJWT.deleteToken();
+          setIsLogin(false);
+        }
+      };
+      window.addEventListener("storage",handlePersist);
+   
+      return ()=>{
+        window.removeEventListener("storage", handlePersist);
+      }
+    },[]);
+
   
     return (
       <AuthContext.Provider
