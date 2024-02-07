@@ -8,12 +8,12 @@ export default function Demo() {
   
     return (
       <div className={style.wrapper}>
-        <p>{JSON.stringify(data)}</p>        
+        <p>{JSON.stringify(data)}</p>      
         <Button onClick={handleFetchProtected}>
-        Request for a protected route
+         Request for a protected route
         </Button>
         <Button onClick={handleLogOut}>
-        Go out
+         Go out
         </Button>
       </div>
     );

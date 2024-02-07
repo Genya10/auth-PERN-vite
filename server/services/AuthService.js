@@ -76,6 +76,7 @@ class AuthService {
      } catch (error) {
       throw new Forbidden(error);
     }
+    
     const {id, role, name: userName
     } = await UserRepository.getUserData(payload.userName);
 

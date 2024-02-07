@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URL,
@@ -26,8 +25,8 @@ app.use(
 
 app.use("/auth",AuthRouter);
 
-app.get("/resourse/protected",TokenService.checkAccess,(_, res) => {
-  res.status(200).json("Welcome!" + Date.now());
+app.get("/resource/protected",TokenService.checkAccess,(_, res) => {
+   //res.status(200).json("Welcome!" + Date.now());
 });
 
 app.listen(PORT, () => {

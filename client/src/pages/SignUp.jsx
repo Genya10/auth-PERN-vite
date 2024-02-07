@@ -55,6 +55,7 @@ export default function SignUp() {
       />
       <Field
         name="password"
+        type="password"
         register={register}
         autoComplete="off"
         placeholder="Password"

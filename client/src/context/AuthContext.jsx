@@ -6,13 +6,13 @@ import style from "../app.module.scss";
 import showError from "../utils/showError";
 import inMemoryJWT from "../memoryJWT/inMemoryJWT";
 
- const AuthClient = axios.create({
+export const AuthClient = axios.create({
     baseURL:`${config.API_URL}/auth`,
     withCredentials:true
   });
 
  const AuthResourse = axios.create({
-  baseURL:`${config}/resourse`
+  baseURL:`${config}/resource`
  });
 
  AuthResourse.interceptors.request.use(
@@ -41,6 +41,7 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
       AuthResourse.get("/protected")
        .then((res)=>{
         setData(res.data);
+        console.log(res.data);
       }).catch(showError);     
     };
   
@@ -110,7 +111,6 @@ import inMemoryJWT from "../memoryJWT/inMemoryJWT";
           handleSignUp,
           handleSignIn,
           handleLogOut,
-          isAppReady,
           isLogin
         }}
       >

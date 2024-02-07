@@ -4,7 +4,8 @@ class RefreshSessionRepository {
   static async getRefreshSession(refreshToken) {
     const response = await pool.query(
       "SELECT * FROM refresh_sessions WHERE refresh_token=$1",
-    [refreshToken]);
+     [refreshToken]
+    );
     if(!response.rows.length){
       return null;
       }
@@ -21,7 +22,6 @@ class RefreshSessionRepository {
     await pool.query("DELETE FROM refresh_sessions WHERE  refresh_token=$1",[
       refreshToken,
     ]);
-
   }
 }
 

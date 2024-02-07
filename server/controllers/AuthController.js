@@ -60,7 +60,7 @@ class AuthController {
       });
       
       res.cookie("refreshToken", refreshToken, COOKIE_SETTINGS.REFRESH_TOKEN)
-      return res.sendStatus(200);
+      return res.status(200).json({accessToken,accessTokenExpiration});
     } catch (err) {
       return ErrorsUtils.catchError(res, err);
     }
